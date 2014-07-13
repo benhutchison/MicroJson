@@ -30,6 +30,13 @@ object Build extends sbt.Build{
       <scm>
         <url>git://github.com/benhutchison/MicroJson.git</url>
       </scm>
+      <developers>
+        <developer>
+          <id>benhutchison</id>
+          <name>Ben Hutchison</name>
+          <url>https://github.com/benhutchison</url>
+        </developer>
+      </developers>
   )
 
   lazy val root = cross.root
