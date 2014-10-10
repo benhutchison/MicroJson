@@ -9,9 +9,9 @@ object Build extends sbt.Build{
   val cross = new utest.jsrunner.JsCrossBuild(
     organization := "com.github.benhutchison",
 
-    version := "0.1",
+    version := "1.0",
     scalaVersion := "2.11.2",
-    name := "MicroJson",
+    name := "microjson",
     crossScalaVersions := Seq("2.10.4", "2.11.2"),
 
     // Sonatype
