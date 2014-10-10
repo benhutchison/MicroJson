@@ -10,8 +10,9 @@ object Build extends sbt.Build{
     organization := "com.github.benhutchison",
 
     version := "0.1",
-    scalaVersion := "2.11.1",
+    scalaVersion := "2.11.2",
     name := "MicroJson",
+    crossScalaVersions := Seq("2.10.4", "2.11.2"),
 
     // Sonatype
     publishArtifact in Test := false,
