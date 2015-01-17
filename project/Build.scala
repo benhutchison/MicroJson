@@ -1,18 +1,17 @@
 import sbt._
 import Keys._
 
-import scala.scalajs.sbtplugin.env.nodejs.NodeJSEnv
-
-import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys._
+import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 
 object Build extends sbt.Build{
   val cross = new utest.jsrunner.JsCrossBuild(
     organization := "com.github.benhutchison",
 
-    version := "1.0",
-    scalaVersion := "2.11.2",
+    version := "1.1-RC1",
+    scalaVersion := "2.11.4",
     name := "microjson",
-    crossScalaVersions := Seq("2.10.4", "2.11.2"),
+    crossScalaVersions := Seq("2.10.4", "2.11.4"),
 
     // Sonatype
     publishArtifact in Test := false,
@@ -42,9 +41,11 @@ object Build extends sbt.Build{
 
   lazy val root = cross.root
 
-  lazy val js = cross.js.settings(
-    (jsEnv in Test) := new NodeJSEnv
-  )
+  lazy val js = cross.js
+  js.enablePlugins(ScalaJSPlugin)
+//    .settings(
+//    (jsEnv in Test) := new NodeJSEnv
+//  )
 
   lazy val jvm = cross.jvm
 }
