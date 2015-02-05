@@ -1,24 +1,29 @@
+import org.scalajs.jsenv.nodejs.NodeJSEnv
 import sbt._
 import Keys._
 
-import scala.scalajs.sbtplugin.env.nodejs.NodeJSEnv
+import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
+import org.scalajs.sbtplugin.cross.CrossProject
 
-import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys._
+object Build extends sbt.Build
+{
 
-object Build extends sbt.Build{
-  val cross = new utest.jsrunner.JsCrossBuild(
+  lazy val sharedSettings = Seq(
     organization := "com.github.benhutchison",
 
-    version := "1.0",
-    scalaVersion := "2.11.2",
+    version := "1.1",
+    scalaVersion := "2.11.5",
     name := "microjson",
-    crossScalaVersions := Seq("2.10.4", "2.11.2"),
+    crossScalaVersions := Seq("2.10.4", "2.11.5"),
 
     // Sonatype
     publishArtifact in Test := false,
     publishTo <<= version { (v: String) =>
       Some("releases"  at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
     },
+
+    testFrameworks += new TestFramework("utest.runner.Framework"),
 
     pomExtra :=
       <url>https://github.com/benhutchison/MicroJson</url>
@@ -40,12 +45,20 @@ object Build extends sbt.Build{
       </developers>
   )
 
-  lazy val root = cross.root
 
-  lazy val js = cross.js.settings(
-    (jsEnv in Test) := new NodeJSEnv
-  )
+  lazy val cross = CrossProject("microjson",new File("."),CrossType.Full).
+    settings(sharedSettings: _*)
+    .jsSettings(
+      //(jsEnv in Test) := new NodeJSEnv,
+      libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.0"
+    ).jvmSettings(
+      libraryDependencies += "com.lihaoyi" %% "utest" % "0.3.0"
+    )
+  lazy val js = cross.js
+  lazy val jvm   = cross.jvm
 
-  lazy val jvm = cross.jvm
+
+
+
 }
 
