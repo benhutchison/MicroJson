@@ -9,10 +9,10 @@ It's the default pickle format for my serialisation library [prickle](https://gi
 ##Getting MicroJson
 
 Scala.jvm
-`"com.github.benhutchison" %% "microjson" % "1.1"
+`"com.github.benhutchison" %% "microjson" % "1.2"
 
 Scala.js 0.6+
-`"com.github.benhutchison" %%% "microjson" % "1.1"
+`"com.github.benhutchison" %%% "microjson" % "1.2"
 
 ## Changelog
 
