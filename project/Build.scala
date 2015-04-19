@@ -6,16 +6,18 @@ import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import org.scalajs.sbtplugin.cross.CrossProject
 
+import xerial.sbt.Sonatype.sonatypeSettings
+
+
 object Build extends sbt.Build
 {
 
   lazy val sharedSettings = Seq(
     organization := "com.github.benhutchison",
 
-    version := "1.1",
-    scalaVersion := "2.11.5",
+    version := "1.2",
+    scalaVersion := "2.11.6",
     name := "microjson",
-    crossScalaVersions := Seq("2.10.4", "2.11.5"),
 
     // Sonatype
     publishArtifact in Test := false,
@@ -45,17 +47,24 @@ object Build extends sbt.Build
       </developers>
   )
 
+  name := "Microjson root project"
 
-  lazy val cross = CrossProject("microjson",new File("."),CrossType.Full).
+  lazy val root = project.in(file(".")).
+    aggregate(js, jvm).
+    settings(
+      publish := {},
+      publishLocal := {}
+    )
+
+  lazy val microjson = crossProject.in(file(".")).
     settings(sharedSettings: _*)
     .jsSettings(
-      //(jsEnv in Test) := new NodeJSEnv,
-      libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.0"
+      libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.1"
     ).jvmSettings(
-      libraryDependencies += "com.lihaoyi" %% "utest" % "0.3.0"
+      libraryDependencies += "com.lihaoyi" %% "utest" % "0.3.1"
     )
-  lazy val js = cross.js
-  lazy val jvm   = cross.jvm
+  lazy val js = microjson.js
+  lazy val jvm   = microjson.jvm
 
 
 

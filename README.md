@@ -14,6 +14,14 @@ Scala.jvm
 Scala.js 0.6+
 `"com.github.benhutchison" %%% "microjson" % "1.1"
 
+## Changelog
+
+| Version | When   | Changes |
+| --------| -------| --------|
+| 1.0     | Oct 14 | Initial release with Prickle |
+| 1.1     | Feb 15 | Scala.js 0.6 |
+| 1.2     | Apr 15 | Performance fixes as revealed by BooPickle tests |
+
 ##Notes
 
 It's based on Haoyi Li's work, which was embedded into an earlier version of [uPickle](https://github.com/lihaoyi/upickle).

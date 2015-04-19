@@ -1,5 +1,7 @@
 package microjson
 
+import scala.collection.mutable.ArrayBuffer
+
 
 sealed trait JsValue {
   def value: Any
@@ -383,9 +385,9 @@ object Json {
 
     def handleArray(): JsArray = {
       tokenNext()
-      var result = List.empty[JsValue]
+      val result = ArrayBuffer.empty[JsValue]
       while (tokenKind != RARR) {
-        result = getJson() :: result
+        result += getJson()
         tokenKind match{
           case COMMA => tokenNext()
           case RARR => // do nothing
@@ -393,12 +395,12 @@ object Json {
         }
       }
       tokenNext()
-      JsArray(result.reverse)
+      JsArray(result.toIndexedSeq)
     }
 
     def handleObject(): JsObject = {
       tokenNext()
-      var result = List.empty[(String, JsValue)]
+      val result = ArrayBuffer.empty[(String, JsValue)]
 
       while (tokenKind != ROBJ) {
         if (tokenKind != STRING && tokenKind != ID) tokenError("Expecting string or name")
@@ -406,7 +408,7 @@ object Json {
         tokenNext()
         if (tokenKind != COLON) tokenError("Expecting :")
         tokenNext()
-        result = (name -> getJson()) :: result
+        result += (name -> getJson())
         tokenKind match{
           case COMMA => tokenNext()
           case ROBJ => // do nothing
