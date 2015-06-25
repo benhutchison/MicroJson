@@ -15,7 +15,7 @@ object Build extends sbt.Build
   lazy val sharedSettings = Seq(
     organization := "com.github.benhutchison",
 
-    version := "1.2",
+    version := "1.3",
     scalaVersion := "2.11.6",
     name := "microjson",
 
@@ -48,13 +48,6 @@ object Build extends sbt.Build
   )
 
   name := "Microjson root project"
-
-  lazy val root = project.in(file(".")).
-    aggregate(js, jvm).
-    settings(
-      publish := {},
-      publishLocal := {}
-    )
 
   lazy val microjson = crossProject.in(file(".")).
     settings(sharedSettings: _*)

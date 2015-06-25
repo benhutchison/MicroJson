@@ -33,6 +33,77 @@ case object JsNull extends JsValue {
 
 
 object Json {
+
+  // *** Character Kinds
+
+  type CharKind = Int
+  val Letter = 0
+  val Digit = 1
+  val Minus = 2
+  val Quote = 3
+  val Colon = 4
+  val Comma = 5
+  val Lbra = 6
+  val Rbra = 7
+  val Larr = 8
+  val Rarr = 9
+  val Blank = 10
+  val Other = 11
+  val Eof = 12
+  val Slash = 13
+
+  // *** Token Kinds
+
+  type TokenKind = Int
+  val ID = 0
+  val STRING = 1
+  val NUMBER = 2
+  val BIGNUMBER = 3
+  val FLOATNUMBER = 4
+  val COLON = 5
+  val COMMA = 6
+  val LOBJ = 7
+  val ROBJ = 8
+  val LARR = 9
+  val RARR = 10
+  val BLANK = 11
+  val EOF = 12
+
+  // *** Character => CharKind Map ***
+
+  val charKind = (0 to 255).toArray.map {
+    case c if 'a'.toInt <= c && c <= 'z'.toInt => Letter
+    case c if 'A'.toInt <= c && c <= 'Z'.toInt => Letter
+    case c if '0'.toInt <= c && c <= '9'.toInt => Digit
+    case '-' => Minus
+    case ',' => Comma
+    case '"' => Quote
+    case ':' => Colon
+    case '{' => Lbra
+    case '}' => Rbra
+    case '[' => Larr
+    case ']' => Rarr
+    case ' ' => Blank
+    case '\t' => Blank
+    case '\n' => Blank
+    case '\r' => Blank
+    case '/' => Slash
+    case _ => Other
+  }
+
+  // *** Character Escapes
+
+  val escapeMap = Map[Int, String](
+    '\\'.toInt -> "\\",
+    '/'.toInt -> "/",
+    '\"'.toInt -> "\"",
+    'b'.toInt -> "\b",
+    'f'.toInt -> "\f",
+    'n'.toInt -> "\n",
+    'r'.toInt -> "\r",
+    't'.toInt -> "\t"
+  )
+
   def writeToBuffer(v: JsValue, sb: StringBuffer): Unit = v match {
     case JsString(s) =>
       sb.append('"')
@@ -100,76 +171,6 @@ object Json {
    * https://github.com/nestorpersist/json
    */
   def read(s: String): JsValue = {
-
-    // *** Character Kinds
-
-    type CharKind = Int
-    val Letter = 0
-    val Digit = 1
-    val Minus = 2
-    val Quote = 3
-    val Colon = 4
-    val Comma = 5
-    val Lbra = 6
-    val Rbra = 7
-    val Larr = 8
-    val Rarr = 9
-    val Blank = 10
-    val Other = 11
-    val Eof = 12
-    val Slash = 13
-
-    // *** Token Kinds
-
-    type TokenKind = Int
-    val ID = 0
-    val STRING = 1
-    val NUMBER = 2
-    val BIGNUMBER = 3
-    val FLOATNUMBER = 4
-    val COLON = 5
-    val COMMA = 6
-    val LOBJ = 7
-    val ROBJ = 8
-    val LARR = 9
-    val RARR = 10
-    val BLANK = 11
-    val EOF = 12
-
-    // *** Character => CharKind Map ***
-
-    val charKind = (0 to 255).toArray.map {
-      case c if 'a'.toInt <= c && c <= 'z'.toInt => Letter
-      case c if 'A'.toInt <= c && c <= 'Z'.toInt => Letter
-      case c if '0'.toInt <= c && c <= '9'.toInt => Digit
-      case '-' => Minus
-      case ',' => Comma
-      case '"' => Quote
-      case ':' => Colon
-      case '{' => Lbra
-      case '}' => Rbra
-      case '[' => Larr
-      case ']' => Rarr
-      case ' ' => Blank
-      case '\t' => Blank
-      case '\n' => Blank
-      case '\r' => Blank
-      case '/' => Slash
-      case _ => Other
-    }
-
-    // *** Character Escapes
-
-    val escapeMap = Map[Int, String](
-      '\\'.toInt -> "\\",
-      '/'.toInt -> "/",
-      '\"'.toInt -> "\"",
-      'b'.toInt -> "\b",
-      'f'.toInt -> "\f",
-      'n'.toInt -> "\n",
-      'r'.toInt -> "\r",
-      't'.toInt -> "\t"
-    )
     // *** Import Shared Data ***
 
     // *** INPUT STRING ***
