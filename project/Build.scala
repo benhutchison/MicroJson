@@ -52,9 +52,9 @@ object Build extends sbt.Build
   lazy val microjson = crossProject.in(file(".")).
     settings(sharedSettings: _*)
     .jsSettings(
-      libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.1"
+      libraryDependencies += "com.lihaoyi" %%% "utest" % "0.3.1" % "test"
     ).jvmSettings(
-      libraryDependencies += "com.lihaoyi" %% "utest" % "0.3.1"
+      libraryDependencies += "com.lihaoyi" %% "utest" % "0.3.1" % "test"
     )
   lazy val js = microjson.js
   lazy val jvm   = microjson.jvm
