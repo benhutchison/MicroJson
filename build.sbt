@@ -7,14 +7,12 @@ lazy val sharedSettings = Seq(
 
   // Sonatype
   publishArtifact in Test := false,
-  publishTo <<= version { (v: String) =>
-    Some("releases"  at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
-  },
+
 
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
   pomExtra :=
-    <url>https://github.com/benhutchison/MicroJson</url>
+    <url>https://github.com/benhutchison/microjson</url>
     <licenses>
       <license>
         <name>Apache license</name>
@@ -22,7 +20,7 @@ lazy val sharedSettings = Seq(
       </license>
     </licenses>
     <scm>
-      <url>git://github.com/benhutchison/MicroJson.git</url>
+      <url>git://github.com/benhutchison/microjson.git</url>
     </scm>
     <developers>
       <developer>
@@ -32,8 +30,6 @@ lazy val sharedSettings = Seq(
       </developer>
     </developers>
 )
-
-name := "Microjson root project"
 
 lazy val microjson = crossProject.in(file(".")).
   settings(sharedSettings: _*)
