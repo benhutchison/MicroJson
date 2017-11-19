@@ -110,6 +110,18 @@ object JsonTests extends TestSuite{
         n
       }
     }
+    "access parsed values as objects" - {
+      val root = parsed.asInstanceOf[JsArray]
+      val obj = root.value(8).asInstanceOf[JsObject]
+      assert(obj.isInstanceOf[JsObject])
+      assert(obj.value("space").isInstanceOf[JsString])
+      assert(obj.value("space").value == " ")
+      assert(obj.value("integer").isInstanceOf[JsNumber])
+      assert(obj.value("integer").value == "1234567890")
+      assert(obj.value("true").value == true)
+      assert(obj.value("jsontext").isInstanceOf[JsString])
+      assert(obj.value("jsontext").value == """{"object with 1 member":["array with 1 element"]}""")
+    }
   }
 }
 
