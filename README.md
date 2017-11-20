@@ -6,6 +6,10 @@ A lightweight JSON model and parser for Scala and Scala.js; turns Strings into J
 The main benefit of this library is that the code is pure scala and identical across JVM and JS.
 It's the default pickle format for my serialisation library [prickle](https://github.com/benhutchison/prickle).
 
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.benhutchison/microjson.svg)]()
+
+[![Build Status](https://travis-ci.org/benhutchison/MicroJson.svg?branch=master)](https://travis-ci.org/benhutchison/MicroJson)
+
 ## Getting MicroJson
 
 Scala.jvm
@@ -23,6 +27,7 @@ Scala.js 0.6+
 | 1.2     | Apr 15 | Performance fixes as revealed by BooPickle tests |
 | 1.3     | Jun 15 | Performance  |
 | 1.4     | Nov 16 | Scala 2.12, update libs  |
+| 1.5     | Nov 17 | SBT 1.x, travis build  |
 
 ## Notes
 
