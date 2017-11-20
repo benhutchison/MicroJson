@@ -6,7 +6,7 @@ A lightweight JSON model and parser for Scala and Scala.js; turns Strings into J
 The main benefit of this library is that the code is pure scala and identical across JVM and JS.
 It's the default pickle format for my serialisation library [prickle](https://github.com/benhutchison/prickle).
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.github.benhutchison/MicroJson.svg?style=plastic)]()
+[![Maven Central](https://img.shields.io/MicroJson/v/com.github.benhutchison/apache-maven.svg?style=plastic)]()
 
 [![Build Status](https://travis-ci.org/benhutchison/MicroJson.svg?branch=master)](https://travis-ci.org/benhutchison/MicroJson)
 
