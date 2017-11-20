@@ -1,8 +1,8 @@
 lazy val sharedSettings = Seq(
   organization := "com.github.benhutchison",
 
-  version := "1.4",
-  scalaVersion := "2.12.0",
+  version := "1.5",
+  scalaVersion := "2.12.4",
   name := "microjson",
 
   // Sonatype
@@ -11,39 +11,26 @@ lazy val sharedSettings = Seq(
 
   testFrameworks += new TestFramework("utest.runner.Framework"),
 
-  pomExtra :=
-    <url>https://github.com/benhutchison/microjson</url>
-    <licenses>
-      <license>
-        <name>Apache license</name>
-        <url>http://opensource.org/licenses/Apache-2.0</url>
-      </license>
-    </licenses>
-    <scm>
-      <url>git://github.com/benhutchison/microjson.git</url>
-    </scm>
-    <developers>
-      <developer>
-        <id>benhutchison</id>
-        <name>Ben Hutchison</name>
-        <url>https://github.com/benhutchison</url>
-      </developer>
-    </developers>
+  licenses += ("MIT license", url("http://opensource.org/licenses/Apache-2.0")),
+  homepage := Some(url("https://github.com/benhutchison/microjson")),
+  developers := List(Developer("benhutchison", "Ben Hutchison", "brhutchison@gmail.com", url = url("https://github.com/benhutchison"))),
+  scmInfo := Some(ScmInfo(url("https://github.com/benhutchison/microjson"), "scm:git:https://github.com/benhutchison/microjson.git")),
+
 )
 
 lazy val microjson = crossProject.in(file(".")).
   settings(sharedSettings: _*)
   .jsSettings(
-    libraryDependencies += "com.lihaoyi" %%% "utest" % "0.4.4" % "test"
+    libraryDependencies += "com.lihaoyi" %%% "utest" % "0.6.0" % "test"
   ).jvmSettings(
-    libraryDependencies += "com.lihaoyi" %% "utest" % "0.4.4" % "test"
+    libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.0" % "test"
   )
 lazy val js = microjson.js
 lazy val jvm   = microjson.jvm
 
 lazy val root = project.in(file(".")).aggregate(js, jvm).
 settings(
-  publishArtifact := false,
-  crossScalaVersions := Seq("2.11.8", "2.12.0"),
+  skip in publish := true,
+  crossScalaVersions := Seq("2.11.11", "2.12.4"),
   sonatypeProfileName := "com.github.benhutchison"
 )
