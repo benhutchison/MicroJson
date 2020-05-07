@@ -12,11 +12,21 @@ It's the default pickle format for my serialisation library [prickle](https://gi
 
 ## Getting MicroJson
 
+![Maven Central](https://img.shields.io/maven-central/v/com.github.benhutchison/microjson_2.13.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.benhutchison/microjson_2.13)
+
+
 Scala.jvm
+<<<<<<< a257c299016e4c0ab67ebfc51001e4df715624e7
 `"com.github.benhutchison" %% "microjson" % "1.4"`
 
 Scala.js 0.6+
 `"com.github.benhutchison" %%% "microjson" % "1.4"`
+=======
+`"com.github.benhutchison" %% "microjson" % "<version above>"
+
+Scala.js 1.x
+`"com.github.benhutchison" %%% "microjson" % "<version above>"
+>>>>>>> Scala 2.13, scalajs 1.x support
 
 ## Changelog
 
@@ -28,11 +38,12 @@ Scala.js 0.6+
 | 1.3     | Jun 15 | Performance  |
 | 1.4     | Nov 16 | Scala 2.12, update libs  |
 | 1.5     | Nov 17 | SBT 1.x, travis build  |
+| 1.6     | Apr 20 | Scala 2.13, Scalajs 1.x  |
 
 ## Notes
 
 It's based on Haoyi Li's work, which was embedded into an earlier version of [uPickle](https://github.com/lihaoyi/upickle).
-I asked Haoyi if he'd be willing to publish it separately on Jul 3, 2014. He didn't want to himeself but he gave me permission to if I wished to.
+I asked Haoyi if he'd be willing to publish it separately on Jul 3, 2014. He didn't want to himself but he gave me permission to if I wished to.
 It's not as fast as Jawn or native browser parsing, which is why uPickle stopped embedding it.
 
 

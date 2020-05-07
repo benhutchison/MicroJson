@@ -1,8 +1,8 @@
 lazy val sharedSettings = Seq(
   organization := "com.github.benhutchison",
 
-  version := "1.5",
-  scalaVersion := "2.12.4",
+  version := "1.6",
+  scalaVersion := "2.13.2",
   name := "microjson",
 
   // Sonatype
@@ -18,19 +18,21 @@ lazy val sharedSettings = Seq(
 
 )
 
-lazy val microjson = crossProject.in(file(".")).
+lazy val microjson = crossProject(JSPlatform, JVMPlatform).in(file(".")).
   settings(sharedSettings: _*)
   .jsSettings(
-    libraryDependencies += "com.lihaoyi" %%% "utest" % "0.6.0" % "test"
+    libraryDependencies += "com.lihaoyi" %%% "utest" % "0.7.4" % "test"
   ).jvmSettings(
-    libraryDependencies += "com.lihaoyi" %% "utest" % "0.6.0" % "test"
+    libraryDependencies += "com.lihaoyi" %% "utest" % "0.7.4" % "test"
   )
 lazy val js = microjson.js
 lazy val jvm   = microjson.jvm
 
 lazy val root = project.in(file(".")).aggregate(js, jvm).
 settings(
-  skip in publish := true,
-  crossScalaVersions := Seq("2.11.11", "2.12.4"),
+  publishArtifact := false,
+  crossScalaVersions := Seq("2.12.8", "2.13.2"),
   sonatypeProfileName := "com.github.benhutchison"
 )
+
+ThisBuild / publishTo := Some(Opts.resolver.sonatypeStaging)
